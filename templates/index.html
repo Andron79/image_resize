@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Список изображений</title>
+</head>
+<h4> Список изображений </h4>
+{% for image in object_list %}
+    {{ image.image }}<br>
+    {#    <a href="{{ images.images}}"</a>#}
+{% endfor %}
+
+<p><a href="upload/">Добавить еще одно изображение</a></p>
+</body>
+</html>

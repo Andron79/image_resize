@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Загрузка изображения</title>
+</head>
+<body>
+<p><a href="/">Назад к списку</a></p>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+</form>
+
+{% if img_obj %}
+    <h3>Успешно за загружено : {{ img_obj.title }}</h3>
+    <img src="{{ img_obj.image.url }}" alt="connect" style="max-height:300px">
+{% endif %}
+</body>
+</html>
