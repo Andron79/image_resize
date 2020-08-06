@@ -16,12 +16,12 @@ class ImageUpload(CreateView):
     template_name = 'upload.html'
     model = Image
     form_class = ImageUploadForm
-    success_url = reverse_lazy('index')
+    #success_url = reverse_lazy('image_resize')
 
 
 class ImageResize(FormView, UpdateView):
     template_name = 'image.html'
     model = Image
     # form_class = ResizeForm
-    fields = ['image',]
-    success_url = reverse_lazy('image_resize')
+    fields = ['image', 'resize_image']
+    # success_url = reverse_lazy('image_resize')

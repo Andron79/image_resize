@@ -3,13 +3,9 @@ from django.urls import reverse
 
 
 class Image(models.Model):
-    # name = models.CharField(max_length=255, blank=False, verbose_name='Имя')
-    image = models.ImageField(upload_to='app', blank=True, verbose_name='Оригинальное изображение')
-    # image_url = models.ImageField(upload_to='app', blank=True)
-    resize_image = models.ImageField(upload_to='app/resize', blank=True, verbose_name='Оредактированное изображение')
-
-    # def __str__(self):
-    #     return self.image
+    image = models.ImageField(upload_to='original', blank=True, verbose_name='Загрузка с компьютера')
+    # image_url = models.ImageField(upload_to='original', blank=True, verbose_name='URL изображения')
+    resize_image = models.ImageField(upload_to='resize', blank=True, verbose_name='Отредактированное изображение')
 
     def get_absolute_url(self):
-        return reverse('image_detail', args=[str(self.id)])
+        return reverse('image_detail', args=[str(self.pk)])

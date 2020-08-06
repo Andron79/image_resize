@@ -7,7 +7,7 @@
 <h4> Список изображений </h4>
 {% for image in object_list %}
 
-     <a href='{% url 'image_resize' image.pk %}'>{{ image.image }}</a><br>
+     <a href='{% url 'image_detail' image.pk %}'>{{ image.image }}</a><br>
 {% endfor %}
 
 <p><a href="upload/">Добавить еще одно изображение</a></p>
