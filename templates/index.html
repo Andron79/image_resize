@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <title>Список изображений</title>
 </head>
-<h4> Список изображений </h4>
+<h2> Список изображений </h2>
+{% if not image_list %} <h4> Нет доступных изображений </h4> {% endif %}
 {% for image in object_list %}
-
-     <a href='{% url 'image_detail' image.pk %}'>{{ image.image }}</a><br>
+     <a href='{% url 'image_detail' image.pk %}'>{{ image.original }}</a><br>
 {% endfor %}
 
-<p><a href="upload/">Добавить еще одно изображение</a></p>
+<p><a href="upload/">Добавить изображение</a></p>
 </body>
 </html>
