@@ -12,8 +12,8 @@ class ImageUploadForm(forms.ModelForm):
 
 
 class ResizeForm(forms.ModelForm):
-    height = forms.IntegerField()
-    width = forms.IntegerField()
+    # height = forms.IntegerField()
+    # width = forms.IntegerField()
 
     class Meta:
         model = Image
