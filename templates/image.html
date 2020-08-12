@@ -3,7 +3,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Редактирование изображения</title>
 </head>
 <p><a href="/">Назад к списку</a></p>
 
@@ -13,7 +13,12 @@
     {{ form.as_p }}
     <button type="submit">Изменить изображение</button>
 </form>
+
+{#{% if image.resize.url %}#}
+{#   <img src="{{ image.resize.url }}">#}
+{#{% else %}#}
 <img src="{{ image.original.url }}">
+{#{% endif %}#}
 <body>
 
 </body>

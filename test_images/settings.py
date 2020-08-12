@@ -125,4 +125,4 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 # Путь хранения картинок
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
