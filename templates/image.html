@@ -1,25 +1,20 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Редактирование изображения</title>
-</head>
-<p><a href="/">Назад к списку</a></p>
+{% extends "base.html" %}
+{% block titles %}
+    Список изображений
+{% endblock %}
+{% block content %}
+    <p><a href="/">Назад к списку</a></p>
 
-<h4> Редактирование изображения </h4>
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Изменить изображение</button>
-</form>
+    <h4> Редактирование изображения </h4>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Изменить изображение</button>
+    </form>
 
-{#{% if image.resize.url %}#}
-{#   <img src="{{ image.resize.url }}">#}
-{#{% else %}#}
-<img src="{{ image.original.url }}">
-{#{% endif %}#}
-<body>
-
-</body>
-</html>
+    {% if image.resize %}
+        <img src="{{ image.resize.url }}" alt="">
+    {% else %}
+        <img src="{{ image.original.url }}" alt="">
+    {% endif %}
+{% endblock %}

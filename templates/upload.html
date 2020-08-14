@@ -1,23 +1,14 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Загрузка изображения</title>
-</head>
-<body>
-<p><a href="/">Назад к списку</a></p>
-<h4> Новое изображение </h4>
-<form action="{{ image.get_absolute_url }}" method="post" enctype="multipart/form-data">
-
-    {% csrf_token %}
-
-    {% if form.non_field_errors %}
+{% extends "base.html" %}
+{% block titles %}
+    Список изображений
+{% endblock %}
+{% block content %}
+    <p><a href="/">Назад к списку</a></p>
+    <h4> Новое изображение </h4>
+    <form action="{{ image.get_absolute_url }}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
         {{ form.non_field_errors }}
-    {% endif %}
-    {{ form.as_p }}
-    <button type="submit">Отправить</button>
-
-</form>
-</body>
-</html>
+        <button type="submit">Отправить</button>
+    </form>
+{% endblock %}
