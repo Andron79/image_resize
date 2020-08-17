@@ -4,9 +4,9 @@ from django.urls import reverse
 
 
 class Image(models.Model):
-    original = models.ImageField(upload_to='original', blank=True, null=True, verbose_name='Файл')
-    image_url = models.URLField(null=True, blank=True, verbose_name='Ссылка')
-    resize = models.ImageField(upload_to='resize', blank=True, verbose_name='Отредактированное изображение')
+    original = models.ImageField(upload_to='original', blank=True, null=True, verbose_name='Загрузить изображение')
+    image_url = models.URLField(null=True, blank=True, verbose_name='Ссылка на изображение')
+    resize = models.ImageField(upload_to='resize', blank=True, null=True, verbose_name='Ресайз изображения')
     height = models.PositiveSmallIntegerField(blank=True, null=True, verbose_name='Высота',
                                               validators=[
                                                   MaxValueValidator(10000),
@@ -19,7 +19,6 @@ class Image(models.Model):
     def get_absolute_url(self):
         return reverse('image_detail', kwargs={'pk': self.pk})
 
-    # def __str__(self):
-    #     if self.image_url:
-    #         file_name = urlparse('image_url').path.split('/')[-1]
-    #         return file_name
+    class Meta:
+        verbose_name = 'Изображение'
+        verbose_name_plural = 'Изображения'

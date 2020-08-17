@@ -1,3 +1,4 @@
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, UpdateView, FormView
@@ -35,9 +36,28 @@ class ImageResize(FormView, UpdateView):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            new_image = Image.objects.get(id=self.kwargs['pk'])
-            # print(new_image.resize.url)
-            images_resize(new_image.original, form.cleaned_data['height'], form.cleaned_data['width'])
+            form.save(commit=False)
+            cleaned_data = form.cleaned_data
+            instance = Image.objects.get(id=self.kwargs['pk'])
+            original = getattr(instance, 'original')
+            image_name = ('resize_' + (str(original).split('/')[-1])).lower()
+            height_res = cleaned_data['height']
+            width_res = cleaned_data['width']
+            image_res = original
+            pillow_image = images_resize(
+                image_res,
+                height_res,
+                width_res
+            )
+            instance.resize.save(image_name,
+                                 InMemoryUploadedFile(
+                                     pillow_image,
+                                     image_name,
+                                     'JPEG',
+                                     pillow_image.tell,
+                                     None,
+                                     None
+                                 ), save=True)
             return HttpResponseRedirect('')
         else:
             form = self.form_class(request.POST or None, request.FILES or None)
