@@ -61,7 +61,6 @@ class ImageResize(FormView, UpdateView):
             return HttpResponseRedirect('')
         else:
             form = self.form_class(request.POST or None, request.FILES or None)
-            print(request.POST or None, request.FILES or None)
             image = Image.objects.get(id=self.kwargs['pk'])
             return render(request, 'image.html', {'form': form,
                                                   'image': image

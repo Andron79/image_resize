@@ -31,8 +31,6 @@ class ImageUploadForm(forms.ModelForm):
                 img = Img.open(resp)
             except IOError:
                 raise forms.ValidationError('Невозможно открыть файл картинки!')
-            # file_name = (urlparse(cleaned_data['image_url']).path.split('/')[-1]).lower()
-
         return cleaned_data
 
     def save(self, force_insert=False, force_update=False, commit=True):
@@ -52,3 +50,8 @@ class ResizeForm(forms.ModelForm):
     class Meta:
         model = Image
         fields = ('height', 'width',)
+
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        if cleaned_data['height'] is None and cleaned_data['width'] is None:  # Если нет никаких параметров
+            raise forms.ValidationError('Небходимо заполнить хотя бы одно поле ввода!')
