@@ -43,7 +43,7 @@ class ImageResize(FormView, UpdateView):
             height_res = cleaned_data['height']
             width_res = cleaned_data['width']
             image_res = original
-            pillow_image = images_resize(
+            new_resize_image = images_resize(
                 image_res,
                 height_res,
                 width_res
@@ -51,10 +51,10 @@ class ImageResize(FormView, UpdateView):
             instance.resize.delete(image_name)
             instance.resize.save(image_name,
                                  InMemoryUploadedFile(
-                                     pillow_image,
+                                     new_resize_image,
                                      image_name,
                                      None,
-                                     pillow_image.tell,
+                                     new_resize_image.tell,
                                      None,
                                      None
                                  ), save=True)

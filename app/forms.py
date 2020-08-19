@@ -4,10 +4,7 @@ from PIL import Image as Img
 from django import forms
 from urllib import request
 from django.core.files.base import ContentFile
-from django.core.files.uploadedfile import InMemoryUploadedFile
-
 from .models import Image
-from .utilites import images_resize
 
 
 class ImageUploadForm(forms.ModelForm):
@@ -56,7 +53,5 @@ class ResizeForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = self.cleaned_data
-        if cleaned_data['height'] is None and cleaned_data['width'] is None:  # Если нет никаких параметров
+        if cleaned_data['height'] is None and cleaned_data['width'] is None:  # Если не задано параметров
             raise forms.ValidationError('Небходимо заполнить хотя бы одно поле ввода!')
-
-
