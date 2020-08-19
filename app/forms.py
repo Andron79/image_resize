@@ -4,7 +4,10 @@ from PIL import Image as Img
 from django import forms
 from urllib import request
 from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
+
 from .models import Image
+from .utilites import images_resize
 
 
 class ImageUploadForm(forms.ModelForm):
@@ -22,7 +25,7 @@ class ImageUploadForm(forms.ModelForm):
             raise forms.ValidationError('Заполните только одно поле ввода!')
         if cleaned_data.get('original') is None and cleaned_data['image_url'] is None:
             raise forms.ValidationError('Заполните хотя бы одно поле ввода!')
-        if cleaned_data['image_url']:  # валидация и загрузка картинки по URL, сохранение на диск
+        if cleaned_data['image_url']:  # валидация и загрузка картинки по URL
             try:
                 resp = requests.get(cleaned_data['image_url'], stream=True).raw
             except requests.exceptions.RequestException as e:
@@ -55,3 +58,5 @@ class ResizeForm(forms.ModelForm):
         cleaned_data = self.cleaned_data
         if cleaned_data['height'] is None and cleaned_data['width'] is None:  # Если нет никаких параметров
             raise forms.ValidationError('Небходимо заполнить хотя бы одно поле ввода!')
+
+

@@ -36,7 +36,6 @@ class ImageResize(FormView, UpdateView):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            form.save(commit=False)
             cleaned_data = form.cleaned_data
             instance = Image.objects.get(id=self.kwargs['pk'])
             original = getattr(instance, 'original')
@@ -49,11 +48,12 @@ class ImageResize(FormView, UpdateView):
                 height_res,
                 width_res
             )
+            instance.resize.delete(image_name)
             instance.resize.save(image_name,
                                  InMemoryUploadedFile(
                                      pillow_image,
                                      image_name,
-                                     'JPEG',
+                                     None,
                                      pillow_image.tell,
                                      None,
                                      None
