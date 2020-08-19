@@ -9,7 +9,7 @@ from .models import Image
 
 class ImageUploadForm(forms.ModelForm):
     """
-    Валидации по условиям задания и сохранение полученного по ссылке файла
+    Валидация ссылки и уникальности заполнение полей ввода
     """
 
     class Meta:
@@ -26,7 +26,7 @@ class ImageUploadForm(forms.ModelForm):
             try:
                 resp = requests.get(cleaned_data['image_url'], stream=True).raw
             except requests.exceptions.RequestException as e:
-                raise forms.ValidationError('Неправильная ссылка!')
+                raise forms.ValidationError('Нерабочая ссылка!')
             try:
                 img = Img.open(resp)
             except IOError:
@@ -53,5 +53,5 @@ class ResizeForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = self.cleaned_data
-        if cleaned_data['height'] is None and cleaned_data['width'] is None:  # Если не задано параметров
+        if cleaned_data['height'] is None and cleaned_data['width'] is None:  # Если не задано никаких параметров
             raise forms.ValidationError('Небходимо заполнить хотя бы одно поле ввода!')
